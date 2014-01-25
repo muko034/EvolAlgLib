@@ -24,25 +24,27 @@ typedef std::shared_ptr<IIndividual> IndividualPtr;
 class IIndividual {
 public:
 	IIndividual();
-	IIndividual(CrossFunctor::Type crossFun, MutateFunctor::Type mutateFun);
+	IIndividual(int genesNo, int minValue, int maxValue);
 	virtual ~IIndividual();
-	IndividualPtr crossover(const IIndividual &other) const;
-	void mutate();
+//	IndividualPtr crossover(const IIndividual &other) const;
+//	void mutate();
 	double fitness() const;
+	virtual bool isValid() =0;
+	virtual IndividualPtr clone();
 
 	int gene(int index) { return m_genotype[index]; }
 	void setGene(int index, int value) { m_genotype[index] = value; }
+	int genesNo() const { return m_genotype.size(); }
+	int minValue() const { return m_minValue; }
+	int maxValue() const { return m_maxValue; }
 
 protected:
 	virtual double calculateFitness() =0;
 
 private:
-	static CrossFunctorFactory m_crossFunFactory;
-	static MutateFunctorFactory m_mutateFunFactory;
-
 	std::vector<int> m_genotype;
-	std::shared_ptr<CrossFunctor> m_crossFunctor;
-	std::shared_ptr<MutateFunctor> m_mutateFunctor;
+	int m_minValue;
+	int m_maxValue;
 
 };
 

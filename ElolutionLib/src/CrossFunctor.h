@@ -24,7 +24,7 @@ public:
 
 	CrossFunctor();
 	virtual ~CrossFunctor();
-	virtual IndividualPtr operator()(const IIndividual &other) =0;
+	virtual IndividualPtr operator()(const IndividualPtr mommy, const IndividualPtr daddy) =0;
 };
 
 } /* namespace EAL */
