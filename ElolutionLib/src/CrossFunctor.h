@@ -19,7 +19,9 @@ class CrossFunctor {
 public:
 
 	enum Type {
-		ONE_POINTED = 0
+		NONE = 0,
+		AVERAGE,
+//		ONE_POINTED
 	};
 
 	CrossFunctor();

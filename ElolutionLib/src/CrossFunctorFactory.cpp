@@ -6,14 +6,14 @@
  */
 
 #include "CrossFunctorFactory.h"
+#include "AverageCrossFunctor.h"
 
 using namespace std;
 
 namespace EAL {
 
 CrossFunctorFactory::CrossFunctorFactory() {
-	// TODO Auto-generated constructor stub
-
+	m_functorMap[CrossFunctor::Type::AVERAGE] = shared_ptr<CrossFunctor>(new AverageCrossFunctor());
 }
 
 CrossFunctorFactory::~CrossFunctorFactory() {

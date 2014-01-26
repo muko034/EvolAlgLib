@@ -29,7 +29,7 @@ public:
 //	IndividualPtr crossover(const IIndividual &other) const;
 //	void mutate();
 	double fitness() const;
-	virtual bool isValid() =0;
+	virtual bool isValid() { return true; }
 	virtual IndividualPtr clone();
 
 	int gene(int index) { return m_genotype[index]; }

@@ -38,15 +38,17 @@ Population::~Population() {
 void Population::generateInitialIndividuals(const IndividualPtr prototype) {
 	// Seed with a real random value, if available
 	random_device rd;
-
 	default_random_engine e1(rd());
 	uniform_int_distribution<int> uniform_dist(prototype->minValue(), prototype->maxValue());
+
 	IndividualPtr individual;
 	for (int i=0; i<m_size; ++i) {
 		individual = prototype->clone();
-		for (int i=0; i<individual->genesNo(); ++i) {
-				individual->setGene(i, uniform_dist(e1));
-		}
+		do {
+			for (int i=0; i<individual->genesNo(); ++i) {
+					individual->setGene(i, uniform_dist(e1));
+			}
+		} while (!individual->isValid());
 		m_individuals.push_back(individual);
 	}
 }

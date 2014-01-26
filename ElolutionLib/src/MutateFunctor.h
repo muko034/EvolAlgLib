@@ -19,7 +19,8 @@ class MutateFunctor {
 public:
 
 	enum Type {
-			SOME = 0
+			NONE = 0,
+			SIMPLE
 		};
 
 	MutateFunctor();

@@ -6,13 +6,14 @@
  */
 
 #include "MutateFunctorFactory.h"
+#include "SimpleMutationFunctor.h"
 
 using namespace std;
 
 namespace EAL {
 
 MutateFunctorFactory::MutateFunctorFactory() {
-//	m_functorMap[MutateFunctor::Type::SOME] = shared_ptr(new );
+	m_functorMap[MutateFunctor::Type::SIMPLE] = shared_ptr<MutateFunctor>(new SimpleMutationFunctor());
 }
 
 MutateFunctorFactory::~MutateFunctorFactory() {

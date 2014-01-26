@@ -25,7 +25,7 @@ public:
 	virtual ~Population();
 
 protected:
-	void generateInitialIndividuals(const IndividualPtr prototype);
+	virtual void generateInitialIndividuals(const IndividualPtr prototype);
 	IndividualPtr crossover(const IndividualPtr mommy, const IndividualPtr daddy);
 	void mutate(IndividualPtr individual);
 

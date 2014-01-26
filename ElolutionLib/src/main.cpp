@@ -25,8 +25,11 @@ int main() {
 
 	// Choose a random mean between 1 and 6
 	std::default_random_engine e1(rd());
-	std::uniform_int_distribution<int> uniform_dist(1, 6);
+	std::uniform_int_distribution<int> uniform_dist(1, 100);
 	int mean = uniform_dist(e1);
+	std::cout << "Randomly-chosen mean: " << mean << '\n';
+	uniform_dist = uniform_int_distribution<int>(-5, 0);
+	mean = uniform_dist(e1);
 	std::cout << "Randomly-chosen mean: " << mean << '\n';
 
 	return 0;
