@@ -23,7 +23,6 @@ EvolutionAlg::EvolutionAlg(Population population, int maxIterations) :
 		m_maxIterations(maxIterations),
 		m_stop(false)
 {
-	cout << "cipa" <<endl;
 }
 
 EvolutionAlg::~EvolutionAlg() {
@@ -35,6 +34,7 @@ void EvolutionAlg::start() {
 	list<IndividualPtr> newGeneration;
 	int count = m_maxIterations;
 	while (!m_stop) {
+		m_population.print();
 		for (int i=0; i<2*m_population.size(); ++i) {
 			mommy = selectOne();
 			daddy = selectOne();
@@ -42,11 +42,12 @@ void EvolutionAlg::start() {
 			m_population.mutate(child);
 			newGeneration.push_back(child);
 		}
+		m_population.add(newGeneration);
 		killWorst();
 		newGeneration.clear();
 		if (--count == 0) m_stop = true;
+		cout << "The best one: " << m_population.m_theBestOne->fitness() << endl;
 	}
-	cout << "The best one: " << m_population.m_theBestOne->fitness() << endl;
 }
 
 void EvolutionAlg::killWorst() {

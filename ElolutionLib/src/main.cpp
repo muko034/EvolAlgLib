@@ -14,6 +14,7 @@
 
 #include <random>
 #include <list>
+#include <vector>
 #include <memory>
 
 using namespace std;
@@ -37,15 +38,25 @@ public:
 
 class ConcrateIndividual : public IIndividual {
 public:
-	ConcrateIndividual() : IIndividual(1, 1, 30) {}
+	ConcrateIndividual() : IIndividual(2) {}
+	ConcrateIndividual(vector<int> &genes) : IIndividual(genes) {}
 	ConcrateIndividual(ConcrateIndividual const *other) : IIndividual(other) {}
-	virtual IndividualPtr clone() {
-		return IndividualPtr(new ConcrateIndividual(this));
+	virtual IndividualPtr clone() { return IndividualPtr(new ConcrateIndividual(this)); }
+	virtual IndividualPtr makeRandomClone() {
+		random_device rd;
+		default_random_engine e1(rd());
+		uniform_int_distribution<int> uniform_dist(1, 30);
+		vector<int> genes;
+		for(int i=0; i<genesNo(); ++i) {
+			genes.push_back(uniform_dist(e1));
+		}
+		return IndividualPtr(new ConcrateIndividual(genes));
 	}
 protected:
 	virtual double calculateFitness() const {
 		int x = gene(0);
-		return (x-5)*(x-5) + 100;
+		int y = gene(1);
+		return (x - 5)*(x - 5)*(x - 5) + x*x - x*y + y*y + 100;
 	}
 };
 
@@ -54,8 +65,8 @@ int main() {
 
 
 	IndividualPtr prototype(new ConcrateIndividual());
-	Population population(100, prototype, CrossFunctor::Type::AVERAGE, MutateFunctor::Type::NONE, SelectFunctor::Type::ROULETTE);
-	EvolutionAlg eal(population, 10);
+	Population population(5, prototype, CrossFunctor::Type::AVERAGE, MutateFunctor::Type::NONE, SelectFunctor::Type::ROULETTE);
+	EvolutionAlg eal(population, 100);
 	eal.start();
 	cout << "!!!Bye World :( !!!" << endl;
 

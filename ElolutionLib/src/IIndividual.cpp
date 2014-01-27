@@ -18,19 +18,22 @@ IIndividual::IIndividual() {
 
 IIndividual::IIndividual(IIndividual const *other) :
 	m_fitnessValue(other->m_fitnessValue),
-	m_genotype(other->m_genotype),
-	m_minValue(other->m_minValue),
-	m_maxValue(other->m_maxValue)
+	m_genotype(other->m_genotype)
 {
 
 }
 
-IIndividual::IIndividual(int genesNo, int minValue, int maxValue) :
-		m_minValue(minValue),
-		m_maxValue(maxValue),
+IIndividual::IIndividual(int genesNo) :
 		m_fitnessValue(-1)
 {
 	for (int i=0; i<genesNo; ++i) m_genotype.push_back(0);
+
+}
+
+IIndividual::IIndividual(std::vector<int> &vec) :
+		m_fitnessValue(-1),
+		m_genotype(vec)
+{
 
 }
 

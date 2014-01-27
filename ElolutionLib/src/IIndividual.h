@@ -24,7 +24,8 @@ typedef std::shared_ptr<IIndividual> IndividualPtr;
 class IIndividual {
 public:
 	IIndividual();
-	IIndividual(int genesNo, int minValue, int maxValue);
+	IIndividual(int genesNo);
+	IIndividual(std::vector<int> &vec);
 	IIndividual(IIndividual const *other);
 	virtual ~IIndividual();
 //	IndividualPtr crossover(const IIndividual &other) const;
@@ -36,6 +37,7 @@ public:
 	double fitness() const;
 	virtual bool isValid() { return true; }
 	virtual IndividualPtr clone() =0;
+	virtual IndividualPtr makeRandomClone() =0;
 	bool operator<(IIndividual const &other) const { return this->fitness() < other.fitness(); }
 	bool operator<(const IndividualPtr other) const { return this->fitness() < other->fitness(); }
 

@@ -32,6 +32,7 @@ public:
 	IndividualPtr selectOne() const;
 	void add(std::list<IndividualPtr> &individuals);
 	int size() const { return m_size; }
+	void print();
 
 protected:
 	virtual void generateInitialIndividuals(const IndividualPtr prototype);

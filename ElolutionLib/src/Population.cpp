@@ -39,19 +39,10 @@ Population::~Population() {
 }
 
 void Population::generateInitialIndividuals(const IndividualPtr prototype) {
-	// Seed with a real random value, if available
-	random_device rd;
-	default_random_engine e1(rd());
-	uniform_int_distribution<int> uniform_dist(prototype->minValue(), prototype->maxValue());
-
 	IndividualPtr individual;
 	for (int i=0; i<m_size; ++i) {
-		individual = prototype->clone();
-		do {
-			for (int i=0; i<individual->genesNo(); ++i) {
-					individual->setGene(i, uniform_dist(e1));
-			}
-		} while (!individual->isValid());
+		individual = prototype->makeRandomClone();
+		// TODO if (!individual->isValid()) throw
 		m_individuals.push_back(individual);
 	}
 
@@ -91,6 +82,14 @@ void Population::add(std::list<IndividualPtr> &individuals) {
 	individuals.sort(IIndividual::rcomp);
 	m_individuals.merge(individuals, IIndividual::rcomp);
 	m_theBestOne = (*m_individuals.begin());
+}
+
+void Population::print() {
+	cout << "Population:";
+	for (IndividualPtr ind : m_individuals) {
+		cout << " " << ind->fitness();
+	}
+	cout<<endl;
 }
 
 } /* namespace EAL */
