@@ -7,6 +7,9 @@
 
 #include "AverageCrossFunctor.h"
 #include <cmath>
+#include <iostream>
+
+using namespace std;
 
 namespace EAL {
 
@@ -26,6 +29,10 @@ IndividualPtr AverageCrossFunctor::operator()(const IndividualPtr mommy, const I
 		mommysGene = mommy->gene(i);
 		daddysGene = daddy->gene(i);
 		gene = round((mommysGene + daddysGene)/2);
+//		cout 	<< " mommysGene " << mommysGene
+//				<< " daddysGene "<< daddysGene
+//				<< " gene "<< gene
+//				<<endl;
 		child->setGene(i, gene);
 	}
 //	TODO if (!child->isValid()) throw ...;

@@ -12,7 +12,6 @@
 #include <memory>
 #include "IIndividual.h"
 #include "CrossFunctorFactory.h"
-#include "MutateFunctorFactory.h"
 #include "SelectFunctorFactory.h"
 #include "CrossFunctor.h"
 #include "MutateFunctor.h"
@@ -27,7 +26,12 @@ class Population {
 	friend class EvolutionAlg;
 public:
 	Population();
-	Population(int popSize, IndividualPtr prototype, double mutationChange, CrossFunctor::Type crossFun, MutateFunctor::Type mutateFun, SelectFunctor::Type selFun);
+	Population(int popSize,
+			   IndividualPtr prototype,
+			   double mutationChange,
+			   CrossFunctor::Type crossFun,
+			   MFunPtr mutateFun,
+			   SelectFunctor::Type selFun);
 	virtual ~Population();
 	IndividualPtr selectOne() const;
 	void add(std::list<IndividualPtr> &individuals);
@@ -42,7 +46,6 @@ protected:
 
 private:
 	static CrossFunctorFactory s_crossFunFactory;
-	static MutateFunctorFactory s_mutateFunFactory;
 	static SelectFunctorFactory s_selectFunFactory;
 
 	std::list<IndividualPtr> m_individuals;

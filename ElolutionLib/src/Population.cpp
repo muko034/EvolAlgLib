@@ -14,7 +14,6 @@ using namespace std;
 namespace EAL {
 
 CrossFunctorFactory Population::s_crossFunFactory;
-MutateFunctorFactory Population::s_mutateFunFactory;
 SelectFunctorFactory Population::s_selectFunFactory;
 
 Population::Population() :
@@ -23,13 +22,13 @@ Population::Population() :
 	// TODO Auto-generated constructor stub
 }
 
-Population::Population(int popSize, IndividualPtr prototype, double mutationChange, CrossFunctor::Type crossFun, MutateFunctor::Type mutateFun, SelectFunctor::Type selFun)
+Population::Population(int popSize, IndividualPtr prototype, double mutationChange, CrossFunctor::Type crossFun, MFunPtr mutateFun, SelectFunctor::Type selFun)
 	: m_size(popSize),
 	  m_mutationChange(mutationChange)
 {
 	cout << "Population::Population(int popSize, IndividualPtr prototype, CrossFunctor::Type crossFun, MutateFunctor::Type mutateFun, SelectFunctor::Type selFun)" <<endl;
 	m_crossFunctor = Population::s_crossFunFactory.getFunctor(crossFun);
-	m_mutateFunctor = Population::s_mutateFunFactory.getFunctor(mutateFun);
+	m_mutateFunctor = mutateFun;
 	m_selectFunctor = Population::s_selectFunFactory.getFunctor(selFun);
 
 	generateInitialIndividuals(prototype);
@@ -43,6 +42,8 @@ void Population::generateInitialIndividuals(const IndividualPtr prototype) {
 	IndividualPtr individual;
 	for (int i=0; i<m_size; ++i) {
 		individual = prototype->makeRandomClone();
+//		cout<<"x: "<<individual->gene(0)<<" y: "<<individual->gene(1)<<endl;
+
 		// TODO if (!individual->isValid()) throw
 		m_individuals.push_back(individual);
 	}

@@ -13,7 +13,10 @@
 namespace EAL {
 
 class IIndividual;
+class MutateFunctor;
+
 typedef std::shared_ptr<IIndividual> IndividualPtr;
+typedef std::shared_ptr<MutateFunctor> MFunPtr;
 
 class MutateFunctor {
 public:

@@ -11,6 +11,7 @@
 #include "IIndividual.h"
 #include "Population.h"
 #include "EvolutionAlg.h"
+#include "SimpleMutationFunctor.h"
 
 #include <random>
 #include <list>
@@ -52,6 +53,14 @@ public:
 		}
 		return IndividualPtr(new ConcrateIndividual(genes));
 	}
+	virtual bool isValid() {
+		vector<int> genotype = this->genotype();
+		for (int gene : genotype) {
+			if (gene < 1 || gene > 30)
+				return false;
+		}
+		return true;
+	}
 protected:
 	virtual double calculateFitness() const {
 		int x = gene(0);
@@ -65,11 +74,11 @@ int main() {
 
 
 	IndividualPtr prototype(new ConcrateIndividual());
-	Population population( 5, prototype, 0.1,
+	Population population( 10, prototype, 0.5,
 						   CrossFunctor::Type::AVERAGE,
-						   MutateFunctor::Type::NONE,
+						   MFunPtr(new SimpleMutationFunctor(0.0, 5.0)),
 						   SelectFunctor::Type::ROULETTE );
-	EvolutionAlg eal(population, 100);
+	EvolutionAlg eal(population, 20);
 	eal.start();
 	cout << "!!!Bye World :( !!!" << endl;
 

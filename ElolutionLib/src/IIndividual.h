@@ -11,7 +11,6 @@
 #include <vector>
 #include <memory>
 #include "CrossFunctorFactory.h"
-#include "MutateFunctorFactory.h"
 #include "CrossFunctor.h"
 #include "MutateFunctor.h"
 
@@ -42,18 +41,15 @@ public:
 	bool operator<(const IndividualPtr other) const { return this->fitness() < other->fitness(); }
 
 	int gene(int index) const { return m_genotype[index]; }
-	void setGene(int index, int value) { m_genotype[index] = value; }
+	std::vector<int> genotype() const { return m_genotype; }
+	void setGene(int index, int value);
 	int genesNo() const { return m_genotype.size(); }
-	int minValue() const { return m_minValue; }
-	int maxValue() const { return m_maxValue; }
 
 protected:
 	virtual double calculateFitness() const =0;
 
 private:
 	std::vector<int> m_genotype;
-	int m_minValue;
-	int m_maxValue;
 	mutable double m_fitnessValue;
 
 };

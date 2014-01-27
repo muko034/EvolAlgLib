@@ -69,7 +69,11 @@ double IIndividual::fitness() const {
 		m_fitnessValue = calculateFitness();
 	}
 	return m_fitnessValue;
+}
 
+void IIndividual::setGene(int index, int value) {
+	m_genotype[index] = value;
+	m_fitnessValue = calculateFitness();
 }
 
 } /* namespace EAL */

@@ -15,9 +15,13 @@ namespace EAL {
 
 class SimpleMutationFunctor: public EAL::MutateFunctor {
 public:
-	SimpleMutationFunctor();
+//	SimpleMutationFunctor();
+	SimpleMutationFunctor(double mean = 0.0, double stddev = 1.0) : m_mean(mean), m_stddev(stddev) {}
 	virtual ~SimpleMutationFunctor();
 	virtual void operator()(IndividualPtr individual);
+private:
+	double m_mean;
+	double m_stddev;
 };
 
 } /* namespace EAL */
