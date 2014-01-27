@@ -7,6 +7,7 @@
 
 #include "EvolutionAlg.h"
 #include <list>
+#include <random>
 #include <iostream>
 
 using namespace std;
@@ -33,15 +34,13 @@ EvolutionAlg::~EvolutionAlg() {
 void EvolutionAlg::start() {
 	IndividualPtr mommy, daddy, child;
 	list<IndividualPtr> newGeneration;
-	int count = m_maxIterations;
 	while (!m_stop) {
 		m_population.print();
 		++m_currIteration;
 		for (int i=0; i<2*m_population.size(); ++i) {
-			mommy = selectOne();
-			daddy = selectOne();
-			child = m_population.crossover(mommy, daddy);
-			m_population.mutate(child);
+			selection(mommy, daddy);
+			child = crossing(mommy, daddy);
+			mutation(child);
 			newGeneration.push_back(child);
 		}
 		m_population.add(newGeneration);
@@ -54,6 +53,17 @@ void EvolutionAlg::start() {
 
 void EvolutionAlg::killWorst() {
 	m_population.m_individuals.resize(m_population.size());
+}
+
+void EvolutionAlg::mutation(IndividualPtr &ind) {
+	random_device rd;
+	default_random_engine gen(rd());
+	uniform_real_distribution<double> dis(0.0, 1.0);
+	double random = dis(gen);
+
+	if (random <= m_population.m_mutationChange) {
+		m_population.mutate(ind);
+	}
 }
 
 } /* namespace EAL */

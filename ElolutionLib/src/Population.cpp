@@ -23,8 +23,9 @@ Population::Population() :
 	// TODO Auto-generated constructor stub
 }
 
-Population::Population(int popSize, IndividualPtr prototype, CrossFunctor::Type crossFun, MutateFunctor::Type mutateFun, SelectFunctor::Type selFun)
-	: m_size(popSize)
+Population::Population(int popSize, IndividualPtr prototype, double mutationChange, CrossFunctor::Type crossFun, MutateFunctor::Type mutateFun, SelectFunctor::Type selFun)
+	: m_size(popSize),
+	  m_mutationChange(mutationChange)
 {
 	cout << "Population::Population(int popSize, IndividualPtr prototype, CrossFunctor::Type crossFun, MutateFunctor::Type mutateFun, SelectFunctor::Type selFun)" <<endl;
 	m_crossFunctor = Population::s_crossFunFactory.getFunctor(crossFun);

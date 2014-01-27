@@ -27,7 +27,7 @@ class Population {
 	friend class EvolutionAlg;
 public:
 	Population();
-	Population(int popSize, IndividualPtr prototype, CrossFunctor::Type crossFun, MutateFunctor::Type mutateFun, SelectFunctor::Type selFun);
+	Population(int popSize, IndividualPtr prototype, double mutationChange, CrossFunctor::Type crossFun, MutateFunctor::Type mutateFun, SelectFunctor::Type selFun);
 	virtual ~Population();
 	IndividualPtr selectOne() const;
 	void add(std::list<IndividualPtr> &individuals);
@@ -50,6 +50,7 @@ private:
 	std::shared_ptr<MutateFunctor> m_mutateFunctor;
 	std::shared_ptr<SelectFunctor> m_selectFunctor;
 	int m_size;
+	double m_mutationChange;
 	IndividualPtr m_theBestOne;
 };
 

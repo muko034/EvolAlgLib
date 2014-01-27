@@ -28,6 +28,9 @@ public:
 
 protected:
 	void killWorst();
+	void selection(IndividualPtr &mommy, IndividualPtr &daddy) { mommy = selectOne(); daddy = selectOne(); }
+	IndividualPtr crossing(IndividualPtr &mommy, IndividualPtr &daddy) { return m_population.crossover(mommy, daddy); }
+	void mutation(IndividualPtr &ind);
 
 private:
 	Population m_population;

@@ -65,7 +65,10 @@ int main() {
 
 
 	IndividualPtr prototype(new ConcrateIndividual());
-	Population population(5, prototype, CrossFunctor::Type::AVERAGE, MutateFunctor::Type::NONE, SelectFunctor::Type::ROULETTE);
+	Population population( 5, prototype, 0.1,
+						   CrossFunctor::Type::AVERAGE,
+						   MutateFunctor::Type::NONE,
+						   SelectFunctor::Type::ROULETTE );
 	EvolutionAlg eal(population, 100);
 	eal.start();
 	cout << "!!!Bye World :( !!!" << endl;
