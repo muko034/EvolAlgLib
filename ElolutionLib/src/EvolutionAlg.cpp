@@ -21,6 +21,7 @@ EvolutionAlg::EvolutionAlg() {
 EvolutionAlg::EvolutionAlg(Population population, int maxIterations) :
 		m_population(population),
 		m_maxIterations(maxIterations),
+		m_currIteration(0),
 		m_stop(false)
 {
 }
@@ -35,6 +36,7 @@ void EvolutionAlg::start() {
 	int count = m_maxIterations;
 	while (!m_stop) {
 		m_population.print();
+		++m_currIteration;
 		for (int i=0; i<2*m_population.size(); ++i) {
 			mommy = selectOne();
 			daddy = selectOne();
@@ -45,7 +47,7 @@ void EvolutionAlg::start() {
 		m_population.add(newGeneration);
 		killWorst();
 		newGeneration.clear();
-		if (--count == 0) m_stop = true;
+		if (stopCondition()) m_stop = true;
 		cout << "The best one: " << m_population.m_theBestOne->fitness() << endl;
 	}
 }

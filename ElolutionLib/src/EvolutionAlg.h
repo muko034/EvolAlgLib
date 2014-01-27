@@ -20,8 +20,11 @@ public:
 
 	IndividualPtr selectOne() { return m_population.selectOne(); }
 	void start();
+	virtual bool stopCondition() { return m_currIteration == m_maxIterations; }
 
 	void setPopulation(const Population &population) { m_population = population; }
+	int maxIteration() const { return m_maxIterations; }
+	int currIteration() const { return m_currIteration; }
 
 protected:
 	void killWorst();
@@ -29,6 +32,7 @@ protected:
 private:
 	Population m_population;
 	int m_maxIterations;
+	int m_currIteration;
 	bool m_stop;
 };
 
