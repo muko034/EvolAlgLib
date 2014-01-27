@@ -15,6 +15,7 @@ namespace EAL {
 
 CrossFunctorFactory Population::s_crossFunFactory;
 MutateFunctorFactory Population::s_mutateFunFactory;
+SelectFunctorFactory Population::s_selectFunFactory;
 
 Population::Population() :
 		m_size(-1)
@@ -22,11 +23,13 @@ Population::Population() :
 	// TODO Auto-generated constructor stub
 }
 
-Population::Population(int popSize, IndividualPtr prototype, CrossFunctor::Type crossFun, MutateFunctor::Type mutateFun)
+Population::Population(int popSize, IndividualPtr prototype, CrossFunctor::Type crossFun, MutateFunctor::Type mutateFun, SelectFunctor::Type selFun)
 	: m_size(popSize)
 {
+	cout << "Population::Population(int popSize, IndividualPtr prototype, CrossFunctor::Type crossFun, MutateFunctor::Type mutateFun, SelectFunctor::Type selFun)" <<endl;
 	m_crossFunctor = Population::s_crossFunFactory.getFunctor(crossFun);
 	m_mutateFunctor = Population::s_mutateFunFactory.getFunctor(mutateFun);
+	m_selectFunctor = Population::s_selectFunFactory.getFunctor(selFun);
 
 	generateInitialIndividuals(prototype);
 }
@@ -51,6 +54,10 @@ void Population::generateInitialIndividuals(const IndividualPtr prototype) {
 		} while (!individual->isValid());
 		m_individuals.push_back(individual);
 	}
+
+	m_individuals.sort(IIndividual::rcomp);
+//	for (IndividualPtr ind : m_individuals) cout<<ind->gene(0)<<endl;
+	m_theBestOne = (*m_individuals.begin());
 }
 
 IndividualPtr Population::crossover(const IndividualPtr mommy, const IndividualPtr daddy) {
@@ -69,6 +76,21 @@ void Population::mutate(IndividualPtr individual) {
 		return;
 	}
 	(*m_mutateFunctor)(individual);
+}
+
+IndividualPtr Population::selectOne() const {
+	if (!m_selectFunctor) {
+		cout << "[ERROR] Populate::selectOne() - "
+			 << "m_selectFunctor is empty!";
+		return IndividualPtr();
+	}
+	return (*m_selectFunctor)(m_individuals);
+}
+
+void Population::add(std::list<IndividualPtr> &individuals) {
+	individuals.sort(IIndividual::rcomp);
+	m_individuals.merge(individuals, IIndividual::rcomp);
+	m_theBestOne = (*m_individuals.begin());
 }
 
 } /* namespace EAL */

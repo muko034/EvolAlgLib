@@ -15,12 +15,16 @@ namespace EAL {
 class EvolutionAlg {
 public:
 	EvolutionAlg();
-	EvolutionAlg(int maxIterations);
+	EvolutionAlg(Population population, int maxIterations);
 	virtual ~EvolutionAlg();
 
+	IndividualPtr selectOne() { return m_population.selectOne(); }
 	void start();
 
 	void setPopulation(const Population &population) { m_population = population; }
+
+protected:
+	void killWorst();
 
 private:
 	Population m_population;

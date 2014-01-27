@@ -7,12 +7,58 @@
 //============================================================================
 
 #include <iostream>
+
+#include "IIndividual.h"
+#include "Population.h"
+#include "EvolutionAlg.h"
+
 #include <random>
+#include <list>
+#include <memory>
 
 using namespace std;
+using namespace EAL;
+
+class ClassA;
+
+typedef shared_ptr<ClassA> APtr;
+
+class ClassA {
+public:
+	ClassA(int x_) : x(x_) {}
+	static bool comp(const APtr &a1, const APtr &a2) { return a1->x >= a2->x; }
+	bool operator<(const APtr &other) { return this->x < other->x; }
+	int x;
+};
+
+//bool comp(const APtr &a1, const APtr &a2) {
+//	return a1->x < a2->x;
+//}
+
+class ConcrateIndividual : public IIndividual {
+public:
+	ConcrateIndividual() : IIndividual(1, 1, 30) {}
+	ConcrateIndividual(ConcrateIndividual const *other) : IIndividual(other) {}
+	virtual IndividualPtr clone() {
+		return IndividualPtr(new ConcrateIndividual(this));
+	}
+protected:
+	virtual double calculateFitness() const {
+		int x = gene(0);
+		return (x-5)*(x-5) + 100;
+	}
+};
 
 int main() {
 	cout << "!!!Hello World :) !!!" << endl; // prints !!!Hello World!!!
+
+
+	IndividualPtr prototype(new ConcrateIndividual());
+	Population population(100, prototype, CrossFunctor::Type::AVERAGE, MutateFunctor::Type::NONE, SelectFunctor::Type::ROULETTE);
+	EvolutionAlg eal(population, 10);
+	eal.start();
+	cout << "!!!Bye World :( !!!" << endl;
+
 
 //	SomeIndividual prototype;
 //	Population population(100, prototype, ...);
@@ -20,17 +66,8 @@ int main() {
 //	evol.start();
 //	evol.printResult();
 
-	// Seed with a real random value, if available
-	std::random_device rd;
 
-	// Choose a random mean between 1 and 6
-	std::default_random_engine e1(rd());
-	std::uniform_int_distribution<int> uniform_dist(1, 100);
-	int mean = uniform_dist(e1);
-	std::cout << "Randomly-chosen mean: " << mean << '\n';
-	uniform_dist = uniform_int_distribution<int>(-5, 0);
-	mean = uniform_dist(e1);
-	std::cout << "Randomly-chosen mean: " << mean << '\n';
+
 
 	return 0;
 }
