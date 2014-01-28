@@ -37,7 +37,6 @@ IndividualPtr RankSelectFunctor::operator()(std::list<IndividualPtr> individuals
 		random -= chance;
 		--rank;
 	}
-
 	// TODO throw
 	return IndividualPtr();
 }

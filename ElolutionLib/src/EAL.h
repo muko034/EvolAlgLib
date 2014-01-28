@@ -20,8 +20,10 @@
 #include "SimpleMutationFunctor.h"
 #include "FlipMutateFunctor.h"
 #include "InvertMutateFunctor.h"
+#include "EmptyMutateFunctor.h"
 #include "RouletteSelectFunctor.h"
 #include "RankSelectFunctor.h"
+#include "EalException.h"
 
 
 #endif /* EAL_H_ */

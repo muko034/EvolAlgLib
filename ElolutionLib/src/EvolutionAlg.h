@@ -20,7 +20,7 @@ public:
 	};
 
 	EvolutionAlg(Population population, int maxIterations, Mode mode=Mode::LOUD);
-	virtual ~EvolutionAlg();
+	virtual ~EvolutionAlg() {}
 
 	IndividualPtr selectOne() { return m_population.selectOne(); }
 	void start();

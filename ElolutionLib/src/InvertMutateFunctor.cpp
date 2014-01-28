@@ -23,7 +23,6 @@ void InvertMutateFunctor::operator()(IndividualPtr individual) {
 	i = uniform_dist(e1);
 	gene = -(individual->gene(i));
 	copy_->setGene(i, gene);
-//	TODO if (!copy_->isValid()) throw;
 	individual->setGene(i, gene);
 }
 

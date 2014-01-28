@@ -27,7 +27,6 @@ void FlipMutateFunctor::operator()(IndividualPtr individual) {
 	gene2 = individual->gene(j);
 	copy_->setGene(i, gene1);
 	copy_->setGene(j, gene2);
-//	TODO if (!copy_->isValid()) throw;
 	individual->setGene(i, gene1);
 	individual->setGene(j, gene2);
 }

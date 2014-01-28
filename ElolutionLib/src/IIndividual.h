@@ -10,6 +10,7 @@
 
 #include <vector>
 #include <memory>
+#include <string>
 #include "CrossFunctor.h"
 #include "MutateFunctor.h"
 
@@ -30,6 +31,7 @@ public:
 	static bool rcomp(const IndividualPtr &i1, const IndividualPtr &i2) { return i1->fitness() >= i2->fitness(); }
 
 	double fitness() const;
+	std::string toString() const;
 	void print();
 	virtual bool isValid() { return true; }
 	virtual IndividualPtr clone() =0;

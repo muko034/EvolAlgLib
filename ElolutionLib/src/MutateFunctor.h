@@ -20,14 +20,8 @@ typedef std::shared_ptr<MutateFunctor> MFunPtr;
 
 class MutateFunctor {
 public:
-
-	enum Type {
-			NONE = 0,
-			SIMPLE
-		};
-
-	MutateFunctor();
-	virtual ~MutateFunctor();
+	MutateFunctor() {}
+	virtual ~MutateFunctor() {}
 	virtual void operator()(IndividualPtr individual) =0;
 };
 

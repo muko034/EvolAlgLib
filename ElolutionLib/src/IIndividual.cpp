@@ -45,6 +45,16 @@ void IIndividual::setGene(int index, int value) {
 	m_fitnessValue = calculateFitness();
 }
 
+string IIndividual::toString() const {
+	string str = "fitness: " + to_string(fitness()) +
+			     ", genotype: [" + to_string(gene(0));
+	for (unsigned i=1; i<m_genotype.size(); ++i) {
+		str = str + ", " + to_string(gene(i));
+	}
+	str = str + "]";
+	return str;
+}
+
 void IIndividual::print() {
 	cout << "fitness: " << fitness()
 		 << ", genotype: ["

@@ -15,8 +15,8 @@ namespace EAL {
 
 class AverageCrossFunctor : public CrossFunctor {
 public:
-	AverageCrossFunctor();
-	virtual ~AverageCrossFunctor();
+	AverageCrossFunctor() {}
+	virtual ~AverageCrossFunctor() {}
 	virtual IndividualPtr operator()(const IndividualPtr mommy, const IndividualPtr daddy);
 };
 

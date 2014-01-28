@@ -6,6 +6,7 @@
  */
 
 #include "AddCrossFunctor.h"
+#include "EalException.h"
 
 using namespace std;
 
@@ -20,7 +21,6 @@ IndividualPtr AddCrossFunctor::operator()(const IndividualPtr mommy, const Indiv
 		gene = mommysGene + daddysGene;
 		child->setGene(i, gene);
 	}
-//	TODO if (!child->isValid()) throw ...;
 	return child;
 }
 

@@ -13,12 +13,6 @@ using namespace std;
 
 namespace EAL {
 
-Population::Population() :
-		m_size(-1)
-{
-	// TODO Auto-generated constructor stub
-}
-
 Population::Population(int popSize,
 					   IndividualPtr prototype,
 					   double mutationChange,

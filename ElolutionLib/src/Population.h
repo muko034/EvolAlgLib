@@ -23,7 +23,6 @@ class EvolutionAlg;
 class Population {
 	friend class EvolutionAlg;
 public:
-	Population();
 	Population(int popSize,
 			   IndividualPtr prototype,
 			   double mutationChange,

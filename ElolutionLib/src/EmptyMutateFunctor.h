@@ -14,8 +14,8 @@ namespace EAL {
 
 class EmptyMutateFunctor: public EAL::MutateFunctor {
 public:
-	EmptyMutateFunctor();
-	virtual ~EmptyMutateFunctor();
+	EmptyMutateFunctor() {}
+	virtual ~EmptyMutateFunctor() {}
 	virtual void operator()(IndividualPtr individual) { }
 };
 

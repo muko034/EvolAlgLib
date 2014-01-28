@@ -29,7 +29,6 @@ IndividualPtr MidpointCrossFunctor::operator()(const IndividualPtr mommy, const 
 		}
 		child->setGene(i, gene);
 	}
-//	TODO if (!child->isValid()) throw ...;
 	return child;
 }
 
