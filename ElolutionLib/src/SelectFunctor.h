@@ -25,8 +25,8 @@ public:
 //		ONE_POINTED
 	};
 
-	SelectFunctor();
-	virtual ~SelectFunctor();
+	SelectFunctor() {}
+	virtual ~SelectFunctor() {}
 	virtual IndividualPtr operator()(const std::list<IndividualPtr> individuals) const =0;
 };
 

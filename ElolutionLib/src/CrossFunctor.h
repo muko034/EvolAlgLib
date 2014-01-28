@@ -24,8 +24,8 @@ public:
 //		ONE_POINTED
 	};
 
-	CrossFunctor();
-	virtual ~CrossFunctor();
+	CrossFunctor() {}
+	virtual ~CrossFunctor() {}
 	virtual IndividualPtr operator()(const IndividualPtr mommy, const IndividualPtr daddy) =0;
 };
 
