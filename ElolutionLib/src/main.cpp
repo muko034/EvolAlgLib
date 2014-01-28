@@ -12,6 +12,9 @@
 #include "Population.h"
 #include "EvolutionAlg.h"
 #include "SimpleMutationFunctor.h"
+#include "AverageCrossFunctor.h"
+#include "RankSelectFunctor.h"
+#include "RouletteSelectFunctor.h"
 
 #include <random>
 #include <list>
@@ -60,11 +63,12 @@ int main() {
 
 	IndividualPtr prototype(new ConcrateIndividual());
 	Population population( 10, prototype, 0.5,
-						   CrossFunctor::Type::AVERAGE,
+						   CFunPtr(new AverageCrossFunctor()),
 						   MFunPtr(new SimpleMutationFunctor(0.0, 5.0)),
-						   SelectFunctor::Type::ROULETTE );
+						   SFunPtr(new RankSelectFunctor()) );
 	EvolutionAlg eal(population, 20);
 	eal.start();
+	eal.theBestOne()->print();
 
 	cout << "!!!Bye World :( !!!" << endl;
 	return 0;

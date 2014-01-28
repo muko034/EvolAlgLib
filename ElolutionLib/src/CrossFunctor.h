@@ -13,17 +13,12 @@
 namespace EAL {
 
 class IIndividual;
+class CrossFunctor;
 typedef std::shared_ptr<IIndividual> IndividualPtr;
+typedef std::shared_ptr<CrossFunctor> CFunPtr;
 
 class CrossFunctor {
 public:
-
-	enum Type {
-		NONE = 0,
-		AVERAGE,
-//		ONE_POINTED
-	};
-
 	CrossFunctor() {}
 	virtual ~CrossFunctor() {}
 	virtual IndividualPtr operator()(const IndividualPtr mommy, const IndividualPtr daddy) =0;

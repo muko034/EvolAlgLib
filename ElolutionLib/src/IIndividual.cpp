@@ -12,13 +12,9 @@ using namespace std;
 
 namespace EAL {
 
-IIndividual::IIndividual() {
-	// TODO Auto-generated constructor stub
-}
-
 IIndividual::IIndividual(IIndividual const *other) :
-	m_fitnessValue(other->m_fitnessValue),
-	m_genotype(other->m_genotype)
+		m_genotype(other->m_genotype),
+		m_fitnessValue(other->m_fitnessValue)
 {
 
 }
@@ -31,38 +27,11 @@ IIndividual::IIndividual(int genesNo) :
 }
 
 IIndividual::IIndividual(std::vector<int> &vec) :
-		m_fitnessValue(-1),
-		m_genotype(vec)
+		m_genotype(vec),
+		m_fitnessValue(-1)
 {
 
 }
-
-IIndividual::~IIndividual() {
-	// TODO Auto-generated destructor stub
-}
-
-//IndividualPtr IIndividual::crossover(const IIndividual &other) const {
-//	if (!m_crossFunctor) {
-//		cout << "[ERROR] IIndividual::crossover(const IIndividual &other) - "
-//			 << "m_mutateFunctor is empty!";
-//		return IndividualPtr();
-//	}
-//	return (*m_crossFunctor)( other );
-//}
-
-//void IIndividual::mutate() {
-//	if (!m_mutateFunctor) {
-//		cout << "[ERROR] IIndividual::mutate() - "
-//			 << "m_mutateFunctor is empty!";
-//		return;
-//	}
-//	(*m_mutateFunctor)();
-//}
-
-//IndividualPtr IIndividual::clone() {
-////	return IndividualPtr(new IIndividual(this));
-//	// TODO
-//}
 
 double IIndividual::fitness() const {
 	if (m_fitnessValue < 0) {
@@ -74,6 +43,16 @@ double IIndividual::fitness() const {
 void IIndividual::setGene(int index, int value) {
 	m_genotype[index] = value;
 	m_fitnessValue = calculateFitness();
+}
+
+void IIndividual::print() {
+	cout << "fitness: " << fitness()
+		 << ", genotype: ["
+		 << gene(0);
+	for (unsigned i=1; i<m_genotype.size(); ++i) {
+		cout << ", " << gene(i);
+	}
+	cout << "]" << endl;
 }
 
 } /* namespace EAL */

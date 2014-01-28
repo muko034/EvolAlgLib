@@ -7,6 +7,7 @@
 
 #include "RankSelectFunctor.h"
 #include <random>
+#include <iostream>
 
 using namespace std;
 
@@ -28,12 +29,15 @@ IndividualPtr RankSelectFunctor::operator()(std::list<IndividualPtr> individuals
 	double chance;
 	int rank=individuals.size();
 	for (IndividualPtr ind : individuals) {
-		chance = rank/sum;
-		if (random <= chance)
+		chance = (double) rank/sum;
+		if (random <= chance) {
+
 			return ind;
+		}
 		random -= chance;
 		--rank;
 	}
+
 	// TODO throw
 	return IndividualPtr();
 }

@@ -14,8 +14,12 @@ namespace EAL {
 
 class EvolutionAlg {
 public:
-	EvolutionAlg();
-	EvolutionAlg(Population population, int maxIterations);
+	enum Mode {
+		SILENT = 0,
+		LOUD
+	};
+
+	EvolutionAlg(Population population, int maxIterations, Mode mode=Mode::LOUD);
 	virtual ~EvolutionAlg();
 
 	IndividualPtr selectOne() { return m_population.selectOne(); }
@@ -23,6 +27,8 @@ public:
 	virtual bool stopCondition() { return m_currIteration == m_maxIterations; }
 
 	void setPopulation(const Population &population) { m_population = population; }
+	Population population() { return m_population; }
+	IndividualPtr theBestOne() { return m_population.theBestOne(); }
 	int maxIteration() const { return m_maxIterations; }
 	int currIteration() const { return m_currIteration; }
 
@@ -37,6 +43,7 @@ private:
 	int m_maxIterations;
 	int m_currIteration;
 	bool m_stop;
+	Mode m_mode;
 };
 
 } /* namespace EAL */

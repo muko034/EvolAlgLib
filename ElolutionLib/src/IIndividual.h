@@ -10,7 +10,6 @@
 
 #include <vector>
 #include <memory>
-#include "CrossFunctorFactory.h"
 #include "CrossFunctor.h"
 #include "MutateFunctor.h"
 
@@ -22,23 +21,19 @@ typedef std::shared_ptr<IIndividual> IndividualPtr;
 
 class IIndividual {
 public:
-	IIndividual();
 	IIndividual(int genesNo);
 	IIndividual(std::vector<int> &vec);
 	IIndividual(IIndividual const *other);
-	virtual ~IIndividual();
-//	IndividualPtr crossover(const IIndividual &other) const;
-//	void mutate();
+	virtual ~IIndividual() {}
 
 	static bool comp(const IndividualPtr &i1, const IndividualPtr &i2) { return i1->fitness() < i2->fitness(); }
 	static bool rcomp(const IndividualPtr &i1, const IndividualPtr &i2) { return i1->fitness() >= i2->fitness(); }
 
 	double fitness() const;
+	void print();
 	virtual bool isValid() { return true; }
 	virtual IndividualPtr clone() =0;
 	virtual IndividualPtr makeRandomClone() =0;
-	bool operator<(IIndividual const &other) const { return this->fitness() < other.fitness(); }
-	bool operator<(const IndividualPtr other) const { return this->fitness() < other->fitness(); }
 
 	int gene(int index) const { return m_genotype[index]; }
 	std::vector<int> genotype() const { return m_genotype; }

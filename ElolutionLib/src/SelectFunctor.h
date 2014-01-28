@@ -14,17 +14,12 @@
 namespace EAL {
 
 class IIndividual;
+class SelectFunctor;
 typedef std::shared_ptr<IIndividual> IndividualPtr;
+typedef std::shared_ptr<SelectFunctor> SFunPtr;
 
 class SelectFunctor {
 public:
-
-	enum Type {
-		NONE = 0,
-		ROULETTE,
-//		ONE_POINTED
-	};
-
 	SelectFunctor() {}
 	virtual ~SelectFunctor() {}
 	virtual IndividualPtr operator()(const std::list<IndividualPtr> individuals) const =0;

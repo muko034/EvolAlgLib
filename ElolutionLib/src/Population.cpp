@@ -13,24 +13,24 @@ using namespace std;
 
 namespace EAL {
 
-CrossFunctorFactory Population::s_crossFunFactory;
-SelectFunctorFactory Population::s_selectFunFactory;
-
 Population::Population() :
 		m_size(-1)
 {
 	// TODO Auto-generated constructor stub
 }
 
-Population::Population(int popSize, IndividualPtr prototype, double mutationChange, CrossFunctor::Type crossFun, MFunPtr mutateFun, SelectFunctor::Type selFun)
-	: m_size(popSize),
-	  m_mutationChange(mutationChange)
+Population::Population(int popSize,
+					   IndividualPtr prototype,
+					   double mutationChange,
+					   CFunPtr crossFun,
+					   MFunPtr mutateFun,
+					   SFunPtr selFun) :
+		m_size(popSize),
+		m_mutationChange(mutationChange),
+		m_crossFunctor(crossFun),
+		m_mutateFunctor(mutateFun),
+		m_selectFunctor(selFun)
 {
-	cout << "Population::Population(int popSize, IndividualPtr prototype, CrossFunctor::Type crossFun, MutateFunctor::Type mutateFun, SelectFunctor::Type selFun)" <<endl;
-	m_crossFunctor = Population::s_crossFunFactory.getFunctor(crossFun);
-	m_mutateFunctor = mutateFun;
-	m_selectFunctor = Population::s_selectFunFactory.getFunctor(selFun);
-
 	generateInitialIndividuals(prototype);
 }
 
@@ -87,11 +87,11 @@ void Population::add(std::list<IndividualPtr> &individuals) {
 }
 
 void Population::print() {
-	cout << "Population:";
+	cout << "[";
 	for (IndividualPtr ind : m_individuals) {
 		cout << " " << ind->fitness();
 	}
-	cout<<endl;
+	cout << " ]" << endl;
 }
 
 } /* namespace EAL */

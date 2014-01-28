@@ -14,16 +14,12 @@ using namespace std;
 
 namespace EAL {
 
-EvolutionAlg::EvolutionAlg() {
-	// TODO Auto-generated constructor stub
-
-}
-
-EvolutionAlg::EvolutionAlg(Population population, int maxIterations) :
+EvolutionAlg::EvolutionAlg(Population population, int maxIterations, Mode mode) :
 		m_population(population),
 		m_maxIterations(maxIterations),
 		m_currIteration(0),
-		m_stop(false)
+		m_stop(false),
+		m_mode(mode)
 {
 }
 
@@ -35,7 +31,10 @@ void EvolutionAlg::start() {
 	IndividualPtr mommy, daddy, child;
 	list<IndividualPtr> newGeneration;
 	while (!m_stop) {
-		m_population.print();
+		if (m_mode == Mode::LOUD) {
+			cout << m_currIteration << ".\t";
+			m_population.print();
+		}
 		++m_currIteration;
 		for (int i=0; i<2*m_population.size(); ++i) {
 			selection(mommy, daddy);
@@ -47,7 +46,6 @@ void EvolutionAlg::start() {
 		killWorst();
 		newGeneration.clear();
 		if (stopCondition()) m_stop = true;
-		cout << "The best one: " << m_population.m_theBestOne->fitness() << endl;
 	}
 }
 

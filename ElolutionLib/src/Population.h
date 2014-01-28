@@ -11,8 +11,6 @@
 #include <list>
 #include <memory>
 #include "IIndividual.h"
-#include "CrossFunctorFactory.h"
-#include "SelectFunctorFactory.h"
 #include "CrossFunctor.h"
 #include "MutateFunctor.h"
 #include "SelectFunctor.h"
@@ -29,13 +27,14 @@ public:
 	Population(int popSize,
 			   IndividualPtr prototype,
 			   double mutationChange,
-			   CrossFunctor::Type crossFun,
+			   CFunPtr crossFun,
 			   MFunPtr mutateFun,
-			   SelectFunctor::Type selFun);
+			   SFunPtr selFun);
 	virtual ~Population();
 	IndividualPtr selectOne() const;
 	void add(std::list<IndividualPtr> &individuals);
 	int size() const { return m_size; }
+	IndividualPtr theBestOne() { return m_theBestOne; }
 	void print();
 
 protected:
@@ -45,9 +44,6 @@ protected:
 
 
 private:
-	static CrossFunctorFactory s_crossFunFactory;
-	static SelectFunctorFactory s_selectFunFactory;
-
 	std::list<IndividualPtr> m_individuals;
 	std::shared_ptr<CrossFunctor> m_crossFunctor;
 	std::shared_ptr<MutateFunctor> m_mutateFunctor;
