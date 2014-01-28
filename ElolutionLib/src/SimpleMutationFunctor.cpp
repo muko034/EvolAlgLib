@@ -14,15 +14,6 @@ using namespace std;
 
 namespace EAL {
 
-//SimpleMutationFunctor::SimpleMutationFunctor() {
-//	// TODO Auto-generated constructor stub
-//
-//}
-
-SimpleMutationFunctor::~SimpleMutationFunctor() {
-	// TODO Auto-generated destructor stub
-}
-
 void SimpleMutationFunctor::operator()(IndividualPtr individual) {
 	IndividualPtr copy_ = individual->clone();
 	random_device rd;
@@ -37,10 +28,6 @@ void SimpleMutationFunctor::operator()(IndividualPtr individual) {
 		index = uniform_dist(e1);
 		random = dis(gen);
 		newGene = individual->gene(index) + round(random);
-//		cout	<<" oldGene: "<<individual->gene(index)
-//				<<" newGene: "<<newGene
-//				<<" index: "<<index
-//				<<endl;
 		copy_->setGene(index, newGene);
 	} while (!copy_->isValid());
 	individual->setGene(index, newGene);
