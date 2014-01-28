@@ -8,13 +8,7 @@
 
 #include <iostream>
 
-#include "IIndividual.h"
-#include "Population.h"
-#include "EvolutionAlg.h"
-#include "SimpleMutationFunctor.h"
-#include "AverageCrossFunctor.h"
-#include "RankSelectFunctor.h"
-#include "RouletteSelectFunctor.h"
+#include "EAL.h"
 
 #include <random>
 #include <list>
